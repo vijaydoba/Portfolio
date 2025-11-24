@@ -179,7 +179,7 @@ const Portfolio = () => {
                 <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-slate-900 bg-slate-800 flex items-center justify-center">
                     {/* REPLACE THE SRC BELOW WITH YOUR IMAGE PATH (e.g., src="/profile.jpg") */}
                     <img 
-                        src="photo.jpeg" 
+                        src="src/assets/photo.jpeg" 
                         alt="Vijay Doba" 
                         className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
                     />
