@@ -8,18 +8,24 @@ import {
   Server, 
   Terminal, 
   ExternalLink,
-  ChevronDown,
   GraduationCap,
   Cpu,
   Globe,
-  ArrowRight,
   Sparkles,
   Menu,
-  X
+  X,
+  FileText,
+  Download,
+  ChevronRight
 } from 'lucide-react';
 
-/* --- ANIMATION COMPONENT --- */
-// This wrapper makes elements slide in when they come into view
+// UNCOMMENT THESE LINES IN YOUR LOCAL PROJECT:
+import profilePic from './assets/photo.jpeg';
+import resumeDe from './assets/CV_VijayDoba_DE.pdf';
+import resumeEn from './assets/Vijay_Doba_CV1.pdf';
+
+
+
 const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
@@ -29,10 +35,11 @@ const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(entry.target); // Only animate once
+        } else {
+          setIsVisible(false);
         }
       },
-      { threshold: 0.15 } // Trigger when 15% of the element is visible
+      { threshold: 0.1 }
     );
 
     if (ref.current) {
@@ -46,10 +53,10 @@ const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
 
   const getTransformClass = () => {
     switch (direction) {
-      case 'left': return '-translate-x-20'; // Slide from left
-      case 'right': return 'translate-x-20'; // Slide from right
-      case 'down': return '-translate-y-10'; // Slide from top
-      case 'up': default: return 'translate-y-20'; // Slide from bottom
+      case 'left': return '-translate-x-20';
+      case 'right': return 'translate-x-20';
+      case 'down': return '-translate-y-10';
+      case 'up': default: return 'translate-y-20';
     }
   };
 
@@ -68,20 +75,15 @@ const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
   );
 };
 
-/* --- MAIN COMPONENT --- */
 const Portfolio = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [resumeMenuOpen, setResumeMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleMouseMove = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
@@ -95,14 +97,13 @@ const Portfolio = () => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setMobileMenuOpen(false); // Close mobile menu after clicking
+      setMobileMenuOpen(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500 selection:text-white overflow-hidden relative">
       
-      {/* Background Interactive Gradient */}
       <div 
         className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000"
         style={{
@@ -110,13 +111,11 @@ const Portfolio = () => {
         }}
       />
       
-      {/* Static Background Blobs */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-900/20 rounded-full blur-[120px] animate-pulse delay-1000" />
       </div>
 
-      {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-500 border-b border-transparent ${scrolled ? 'bg-slate-950/80 backdrop-blur-xl border-slate-800/50 py-3' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="text-xl font-bold tracking-tighter flex items-center gap-2 relative z-50">
@@ -124,7 +123,6 @@ const Portfolio = () => {
             <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Vijay Doba</span>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
             {['About', 'Experience', 'Projects', 'Skills'].map((item) => (
               <button 
@@ -144,7 +142,6 @@ const Portfolio = () => {
             </button>
           </div>
 
-          {/* Mobile Hamburger Button */}
           <button 
             className="md:hidden relative z-50 p-2 text-slate-300 hover:text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -152,7 +149,6 @@ const Portfolio = () => {
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          {/* Mobile Menu Overlay */}
           <div className={`fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-center space-y-8 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             {['About', 'Experience', 'Projects', 'Skills', 'Contact'].map((item) => (
               <button 
@@ -164,24 +160,20 @@ const Portfolio = () => {
               </button>
             ))}
           </div>
-
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative pt-20">
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             
-            {/* Image Upload Section */}
             <div className="relative group shrink-0 animate-in fade-in zoom-in duration-1000">
                 <div className="absolute -inset-1 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
                 <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-slate-900 bg-slate-800 flex items-center justify-center">
-                    {/* REPLACE THE SRC BELOW WITH YOUR IMAGE PATH (e.g., src="/profile.jpg") */}
                     <img 
-                        src="src/assets/photo.jpeg" 
+                        src={profilePic} 
                         alt="Vijay Doba" 
-                        className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
+                        className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity"
                     />
                 </div>
             </div>
@@ -208,14 +200,53 @@ const Portfolio = () => {
               </Reveal>
               
               <Reveal direction="up" delay={600}>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                  <button 
-                    onClick={() => scrollToSection('projects')}
-                    className="px-8 py-4 bg-white text-slate-900 rounded-full font-bold hover:bg-indigo-50 transition-all transform hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 flex items-center justify-center"
-                  >
-                    View Work <ArrowRight className="ml-2 w-4 h-4" />
-                  </button>
-                  <div className="flex gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center">
+                  
+                  <div className="relative z-20">
+                    <button 
+                      onClick={() => setResumeMenuOpen(!resumeMenuOpen)}
+                      className={`px-8 py-3.5 rounded-full font-bold transition-all transform flex items-center gap-2 text-sm shadow-xl ${
+                        resumeMenuOpen 
+                        ? 'bg-slate-800 text-white border border-slate-700' 
+                        : 'bg-white text-slate-900 hover:bg-indigo-50 hover:-translate-y-1 hover:shadow-indigo-500/20'
+                      }`}
+                    >
+                      {resumeMenuOpen ? <X size={18} /> : <FileText size={18} />}
+                      Download CV
+                    </button>
+
+                    {resumeMenuOpen && (
+                      <div className="absolute top-full mt-3 left-0 w-full sm:w-64 bg-slate-900/90 backdrop-blur-xl border border-slate-700 rounded-xl p-2 flex flex-col gap-1 animate-in fade-in slide-in-from-top-2 shadow-2xl">
+                         <a 
+                           href={resumeEn}
+                           download="Vijay_Doba_CV_EN.pdf"
+                           className="flex items-center justify-between px-4 py-3 hover:bg-indigo-500/10 hover:text-indigo-400 rounded-lg transition-colors text-sm text-slate-300 group"
+                           onClick={() => setResumeMenuOpen(false)}
+                         >
+                           <div className="flex items-center gap-3">
+                             <span className="font-mono text-xs border border-slate-600 px-1.5 py-0.5 rounded text-slate-400 group-hover:border-indigo-500/50 group-hover:text-indigo-400">EN</span>
+                             <span>English Version</span>
+                           </div>
+                           <Download size={14} />
+                         </a>
+                         <div className="h-px bg-slate-800 mx-2" />
+                         <a 
+                           href={resumeDe}
+                           download="Vijay_Doba_CV_DE.pdf"
+                           className="flex items-center justify-between px-4 py-3 hover:bg-indigo-500/10 hover:text-indigo-400 rounded-lg transition-colors text-sm text-slate-300 group"
+                           onClick={() => setResumeMenuOpen(false)}
+                         >
+                           <div className="flex items-center gap-3">
+                             <span className="font-mono text-xs border border-slate-600 px-1.5 py-0.5 rounded text-slate-400 group-hover:border-indigo-500/50 group-hover:text-indigo-400">DE</span>
+                             <span>German Version</span>
+                           </div>
+                           <Download size={14} />
+                         </a>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex gap-3 justify-center">
                     <SocialLink href="https://github.com/vijaydoba" icon={<Github size={20} />} />
                     <SocialLink href="https://linkedin.com/in/vijay-babubhai-doba" icon={<Linkedin size={20} />} />
                   </div>
@@ -223,26 +254,13 @@ const Portfolio = () => {
               </Reveal>
             </div>
           </div>
-
-          {/* Fixed Scroll Button */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-20">
-            <button 
-                onClick={() => scrollToSection('about')}
-                className="p-4 text-slate-500 hover:text-indigo-400 transition-colors cursor-pointer"
-                aria-label="Scroll Down"
-            >
-                <ChevronDown size={32} />
-            </button>
-          </div>
         </div>
       </section>
 
-      {/* About Section */}
       <section id="about" className="py-32 relative">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             
-            {/* Animate Box from Right */}
             <Reveal direction="right" className="order-1 md:order-2">
               <div className="relative group">
                 <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-500" />
@@ -266,7 +284,6 @@ const Portfolio = () => {
               </div>
             </Reveal>
             
-            {/* Animate Text from Left */}
             <Reveal direction="left" className="order-2 md:order-1">
               <div>
                 <SectionTitle number="01" title="About Me" />
@@ -291,7 +308,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Experience Section */}
       <section id="experience" className="py-32 bg-slate-900/30">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -299,7 +315,6 @@ const Portfolio = () => {
           </Reveal>
           
           <div className="grid gap-8 max-w-4xl mx-auto">
-            {/* Animate from left */}
             <Reveal direction="left">
               <TimelineItem 
                 role="Web Developer"
@@ -311,7 +326,6 @@ const Portfolio = () => {
               </TimelineItem>
             </Reveal>
 
-            {/* Animate from right */}
             <Reveal direction="right" delay={200}>
               <TimelineItem 
                 role="Backend Intern"
@@ -326,7 +340,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
       <section id="projects" className="py-32">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -385,7 +398,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Skills Section */}
       <section id="skills" className="py-32 bg-slate-900/30">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -409,7 +421,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Education Section */}
       <section id="education" className="py-32">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -437,9 +448,7 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Contact / CTA Section */}
       <section id="contact" className="py-32 relative overflow-hidden">
-        {/* Glow effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-full blur-[100px] -z-10" />
 
         <div className="container mx-auto px-6 text-center">
@@ -466,7 +475,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="py-8 border-t border-slate-800/50 bg-slate-950 text-slate-500 text-sm">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p>© {new Date().getFullYear()} Vijay Doba. Built with React & Tailwind.</p>
@@ -481,8 +489,6 @@ const Portfolio = () => {
   );
 };
 
-// Components
-
 const SectionTitle = ({ number, title }) => (
   <div className="flex items-center gap-4 mb-12">
     <span className="font-mono text-indigo-500 text-xl font-bold">{number}.</span>
@@ -493,8 +499,8 @@ const SectionTitle = ({ number, title }) => (
 
 const SocialLink = ({ href, icon }) => (
   <a 
-    href={href}
-    target="_blank"
+    href={href} 
+    target="_blank" 
     rel="noopener noreferrer"
     className="p-3 bg-slate-900 border border-slate-800 text-slate-400 rounded-full hover:text-white hover:border-indigo-500 hover:bg-indigo-500/10 transition-all duration-300"
   >
