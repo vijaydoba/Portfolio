@@ -18,17 +18,14 @@ import {
   Download
 } from 'lucide-react';
 
-// Asset imports - ensure these exist in the /src/assets folder
+// source files
+
 import profilePic from './assets/photo.jpeg';
-// Update these filenames to match your local PDF files exactly
 import resumeEn from './assets/Vijay_Doba_CV1.pdf';
 import resumeDe from './assets/CV_VijayDoba_DE.pdf';
 
-/**
- * Reusable component for scroll-triggered animations.
- * Uses IntersectionObserver to detect when elements enter the viewport.
- * Resets state on exit to allow re-playing animations.
- */
+//scrollint reveal component
+
 const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
