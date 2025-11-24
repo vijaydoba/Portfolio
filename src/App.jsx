@@ -15,17 +15,20 @@ import {
   Menu,
   X,
   FileText,
-  Download,
-  ChevronRight
+  Download
 } from 'lucide-react';
 
-// UNCOMMENT THESE LINES IN YOUR LOCAL PROJECT:
+// Asset imports - ensure these exist in the /src/assets folder
 import profilePic from './assets/photo.jpeg';
-import resumeDe from './assets/CV_VijayDoba_DE.pdf';
-import resumeEn from './assets/Vijay_Doba_CV1.pdf';
+// Update these filenames to match your local PDF files exactly
+import resumeEn from './assets/resume-en.pdf';
+import resumeDe from './assets/resume-de.pdf';
 
-
-
+/**
+ * Reusable component for scroll-triggered animations.
+ * Uses IntersectionObserver to detect when elements enter the viewport.
+ * Resets state on exit to allow re-playing animations.
+ */
 const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
@@ -33,13 +36,10 @@ const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
+        // Toggle visibility based on intersection status
+        setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 } // Trigger when 10% of element is visible
     );
 
     if (ref.current) {
@@ -51,6 +51,7 @@ const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
     };
   }, []);
 
+  // Calculate CSS transform based on direction prop
   const getTransformClass = () => {
     switch (direction) {
       case 'left': return '-translate-x-20';
@@ -76,17 +77,21 @@ const Reveal = ({ children, direction = 'up', delay = 0, className = '' }) => {
 };
 
 const Portfolio = () => {
+  // State for UI interactions
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [resumeMenuOpen, setResumeMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  // Handle global window events
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     const handleMouseMove = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
+    
+    // Cleanup listeners to prevent memory leaks
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -97,13 +102,14 @@ const Portfolio = () => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setMobileMenuOpen(false);
+      setMobileMenuOpen(false); // Close mobile menu after navigation
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500 selection:text-white overflow-hidden relative">
       
+      {/* Dynamic background gradient following mouse cursor */}
       <div 
         className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000"
         style={{
@@ -111,11 +117,13 @@ const Portfolio = () => {
         }}
       />
       
+      {/* Decorative background blobs */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-900/20 rounded-full blur-[120px] animate-pulse delay-1000" />
       </div>
 
+      {/* Main Navigation Bar */}
       <nav className={`fixed w-full z-50 transition-all duration-500 border-b border-transparent ${scrolled ? 'bg-slate-950/80 backdrop-blur-xl border-slate-800/50 py-3' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="text-xl font-bold tracking-tighter flex items-center gap-2 relative z-50">
@@ -123,6 +131,7 @@ const Portfolio = () => {
             <span className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">Vijay Doba</span>
           </div>
 
+          {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
             {['About', 'Experience', 'Projects', 'Skills'].map((item) => (
               <button 
@@ -142,6 +151,7 @@ const Portfolio = () => {
             </button>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <button 
             className="md:hidden relative z-50 p-2 text-slate-300 hover:text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -149,6 +159,7 @@ const Portfolio = () => {
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
 
+          {/* Mobile Overlay */}
           <div className={`fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-center space-y-8 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             {['About', 'Experience', 'Projects', 'Skills', 'Contact'].map((item) => (
               <button 
@@ -163,10 +174,12 @@ const Portfolio = () => {
         </div>
       </nav>
 
+      {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative pt-20">
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             
+            {/* Profile Image with glow effect */}
             <div className="relative group shrink-0 animate-in fade-in zoom-in duration-1000">
                 <div className="absolute -inset-1 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
                 <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-slate-900 bg-slate-800 flex items-center justify-center">
@@ -202,6 +215,7 @@ const Portfolio = () => {
               <Reveal direction="up" delay={600}>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center">
                   
+                  {/* Resume Dropdown Button */}
                   <div className="relative z-20">
                     <button 
                       onClick={() => setResumeMenuOpen(!resumeMenuOpen)}
@@ -212,7 +226,7 @@ const Portfolio = () => {
                       }`}
                     >
                       {resumeMenuOpen ? <X size={18} /> : <FileText size={18} />}
-                      RESUME
+                      Download CV
                     </button>
 
                     {resumeMenuOpen && (
@@ -248,7 +262,7 @@ const Portfolio = () => {
 
                   <div className="flex gap-3 justify-center">
                     <SocialLink href="https://github.com/vijaydoba" icon={<Github size={20} />} />
-                    <SocialLink href="https://www.linkedin.com/in/vijaydoba/" icon={<Linkedin size={20} />} />
+                    <SocialLink href="https://www.linkedin.com/in/vijay-babubhai-doba" icon={<Linkedin size={20} />} />
                   </div>
                 </div>
               </Reveal>
@@ -257,6 +271,7 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* About Section */}
       <section id="about" className="py-32 relative">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -308,6 +323,7 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Experience Timeline */}
       <section id="experience" className="py-32 bg-slate-900/30">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -340,6 +356,7 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Projects Grid */}
       <section id="projects" className="py-32">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -398,6 +415,7 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Technical Skills */}
       <section id="skills" className="py-32 bg-slate-900/30">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -421,6 +439,7 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Education */}
       <section id="education" className="py-32">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
@@ -448,6 +467,7 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Contact CTA */}
       <section id="contact" className="py-32 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-full blur-[100px] -z-10" />
 
@@ -475,12 +495,13 @@ const Portfolio = () => {
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="py-8 border-t border-slate-800/50 bg-slate-950 text-slate-500 text-sm">
         <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p>© {new Date().getFullYear()} Vijay Doba. Built with React & Tailwind.</p>
           <div className="flex gap-6">
             <a href="https://github.com/vijaydoba" className="hover:text-white transition-colors"><Github size={18} /></a>
-            <a href="https://www.linkedin.com/in/vijaydoba/" className="hover:text-white transition-colors"><Linkedin size={18} /></a>
+            <a href="https://linkedin.com/in/vijay-babubhai-doba" className="hover:text-white transition-colors"><Linkedin size={18} /></a>
             <a href="mailto:vijaydoba0011@gmail.com" className="hover:text-white transition-colors"><Mail size={18} /></a>
           </div>
         </div>
@@ -488,6 +509,8 @@ const Portfolio = () => {
     </div>
   );
 };
+
+// --- Sub-Components ---
 
 const SectionTitle = ({ number, title }) => (
   <div className="flex items-center gap-4 mb-12">
