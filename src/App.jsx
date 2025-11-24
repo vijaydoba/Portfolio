@@ -21,8 +21,8 @@ import {
 // Asset imports - ensure these exist in the /src/assets folder
 import profilePic from './assets/photo.jpeg';
 // Update these filenames to match your local PDF files exactly
-import resumeEn from './assets/resume-en.pdf';
-import resumeDe from './assets/resume-de.pdf';
+import resumeEn from './assets/Vijay_Doba_CV1.pdf';
+import resumeDe from './assets/CV_VijayDoba_DE.pdf';
 
 /**
  * Reusable component for scroll-triggered animations.
@@ -226,7 +226,7 @@ const Portfolio = () => {
                       }`}
                     >
                       {resumeMenuOpen ? <X size={18} /> : <FileText size={18} />}
-                      Download CV
+                      RESUME
                     </button>
 
                     {resumeMenuOpen && (
@@ -262,7 +262,7 @@ const Portfolio = () => {
 
                   <div className="flex gap-3 justify-center">
                     <SocialLink href="https://github.com/vijaydoba" icon={<Github size={20} />} />
-                    <SocialLink href="https://www.linkedin.com/in/vijay-babubhai-doba" icon={<Linkedin size={20} />} />
+                    <SocialLink href="https://www.linkedin.com/in/vijaydoba/" icon={<Linkedin size={20} />} />
                   </div>
                 </div>
               </Reveal>
@@ -501,7 +501,7 @@ const Portfolio = () => {
           <p>© {new Date().getFullYear()} Vijay Doba. Built with React & Tailwind.</p>
           <div className="flex gap-6">
             <a href="https://github.com/vijaydoba" className="hover:text-white transition-colors"><Github size={18} /></a>
-            <a href="https://linkedin.com/in/vijay-babubhai-doba" className="hover:text-white transition-colors"><Linkedin size={18} /></a>
+            <a href="https://www.linkedin.com/in/vijay-babubhai-doba" className="hover:text-white transition-colors"><Linkedin size={18} /></a>
             <a href="mailto:vijaydoba0011@gmail.com" className="hover:text-white transition-colors"><Mail size={18} /></a>
           </div>
         </div>
