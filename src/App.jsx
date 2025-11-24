@@ -158,21 +158,21 @@ const Portfolio = () => {
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
-
-          {/* Mobile Overlay */}
-          <div className={`fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-center space-y-8 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-            {['About', 'Experience', 'Projects', 'Skills', 'Contact'].map((item) => (
-              <button 
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="text-2xl font-bold text-slate-300 hover:text-indigo-400 hover:scale-110 transition-all"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
         </div>
       </nav>
+
+      {/* Mobile Overlay - Moved OUTSIDE the nav tag to fix the scroll bug */}
+      <div className={`fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-40 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col items-center justify-center space-y-8 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        {['About', 'Experience', 'Projects', 'Skills', 'Contact'].map((item) => (
+          <button 
+            key={item}
+            onClick={() => scrollToSection(item.toLowerCase())}
+            className="text-2xl font-bold text-slate-300 hover:text-indigo-400 hover:scale-110 transition-all"
+          >
+            {item}
+          </button>
+        ))}
+      </div>
 
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative pt-20">
@@ -262,7 +262,7 @@ const Portfolio = () => {
 
                   <div className="flex gap-3 justify-center">
                     <SocialLink href="https://github.com/vijaydoba" icon={<Github size={20} />} />
-                    <SocialLink href="https://www.linkedin.com/in/vijaydoba/" icon={<Linkedin size={20} />} />
+                    <SocialLink href="https://www.linkedin.com/in/vijay-babubhai-doba" icon={<Linkedin size={20} />} />
                   </div>
                 </div>
               </Reveal>
@@ -501,7 +501,7 @@ const Portfolio = () => {
           <p>© {new Date().getFullYear()} Vijay Doba. Built with React & Tailwind.</p>
           <div className="flex gap-6">
             <a href="https://github.com/vijaydoba" className="hover:text-white transition-colors"><Github size={18} /></a>
-            <a href="https://www.linkedin.com/in/vijay-babubhai-doba" className="hover:text-white transition-colors"><Linkedin size={18} /></a>
+            <a href="https://linkedin.com/in/vijay-babubhai-doba" className="hover:text-white transition-colors"><Linkedin size={18} /></a>
             <a href="mailto:vijaydoba0011@gmail.com" className="hover:text-white transition-colors"><Mail size={18} /></a>
           </div>
         </div>
