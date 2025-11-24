@@ -212,7 +212,7 @@ const Portfolio = () => {
                       }`}
                     >
                       {resumeMenuOpen ? <X size={18} /> : <FileText size={18} />}
-                      Download CV
+                      RESUME
                     </button>
 
                     {resumeMenuOpen && (
