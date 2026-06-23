@@ -1,16 +1,34 @@
-# React + Vite
+# Vijay Doba — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of **Vijay Babubhai Doba**, M.Sc. Artificial Intelligence student at FAU Erlangen–Nürnberg.
+AI Engineer & Full-Stack Developer focused on LLM/GPT API integration, Python data pipelines, and full-stack web development.
 
-Currently, two official plugins are available:
+🔗 **Live:** https://vijaydoba.github.io/Portfolio
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- **React 19** + **Vite** (rolldown-vite)
+- **Tailwind CSS**
+- **lucide-react** icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Featured Projects
 
-## Expanding the ESLint configuration
+- **EarlyApply** — AI job-matching platform (Anthropic Claude API, FastAPI, PostgreSQL, Next.js, ETL)
+- **Few-Shot OOD Detection** — CVPR 2023 reproduction with prompt learning (PyTorch, CLIP)
+- **FedAS** — personalized federated learning study (PyTorch, CUDA)
+- **Chatrio** — real-time anonymous chat PWA (React, Node.js, Socket.IO)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Development
+
+```bash
+npm install      # install dependencies
+npm run dev      # start dev server
+npm run build    # production build
+npm run deploy   # build + publish to GitHub Pages
+```
+
+## Contact
+
+- Email: vijaydoba0011@gmail.com
+- LinkedIn: https://www.linkedin.com/in/vijaydoba/
+- GitHub: https://github.com/vijaydoba
