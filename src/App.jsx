@@ -3,10 +3,10 @@ import {
   Github, 
   Linkedin, 
   Mail, 
-  Code, 
-  Brain, 
-  Server, 
-  Terminal, 
+  Code,
+  Brain,
+  Server,
+  Terminal,
   ExternalLink,
   GraduationCap,
   Cpu,
@@ -15,7 +15,8 @@ import {
   Menu,
   X,
   FileText,
-  Download
+  Download,
+  Database
 } from 'lucide-react';
 
 // source files
@@ -191,7 +192,7 @@ const Portfolio = () => {
             <div className="max-w-2xl text-center md:text-left">
               <Reveal direction="down">
                 <div className="inline-flex items-center px-3 py-1 mb-6 text-xs font-medium tracking-widest text-indigo-300 uppercase bg-indigo-500/10 rounded-full border border-indigo-500/20 backdrop-blur-sm">
-                  <Sparkles size={12} className="mr-2" /> AI Specialist & Web Developer
+                  <Sparkles size={12} className="mr-2" /> AI Engineer & Full-Stack Developer
                 </div>
               </Reveal>
               
@@ -204,8 +205,10 @@ const Portfolio = () => {
               
               <Reveal direction="left" delay={400}>
                 <p className="text-lg text-slate-400 mb-10 leading-relaxed font-light">
-                  M.Sc. Artificial Intelligence student at <span className="text-slate-200 font-medium">FAU Erlangen-Nürnberg</span>. 
-                  Bridging the gap between scalable web architecture and advanced machine learning models.
+                  M.Sc. Artificial Intelligence student at <span className="text-slate-200 font-medium">FAU Erlangen-Nürnberg</span>.
+                  I integrate <span className="text-slate-200 font-medium">LLM/GPT APIs</span> into full-stack applications and
+                  build <span className="text-slate-200 font-medium">Python data pipelines</span> — bridging scalable software
+                  with applied machine learning.
                 </p>
               </Reveal>
               
@@ -282,9 +285,9 @@ const Portfolio = () => {
                   </h3>
                   <div className="grid grid-cols-1 gap-4">
                     {[
+                      { title: "LLM Integration", desc: "Claude/GPT APIs, data pipelines", color: "border-indigo-500/50" },
                       { title: "Machine Learning", desc: "OOD Detection, Prompt Learning", color: "border-purple-500/50" },
-                      { title: "Web Development", desc: "React, Node.js, WebSockets", color: "border-indigo-500/50" },
-                      { title: "Federated Learning", desc: "Privacy-preserving AI", color: "border-pink-500/50" },
+                      { title: "Full-Stack Web", desc: "React, Next.js, FastAPI, Node.js", color: "border-pink-500/50" },
                     ].map((item, idx) => (
                       <div key={idx} className={`p-4 rounded-xl border ${item.color} bg-slate-950/50 backdrop-blur-sm`}>
                         <div className="font-bold text-slate-200">{item.title}</div>
@@ -329,13 +332,13 @@ const Portfolio = () => {
           
           <div className="grid gap-8 max-w-4xl mx-auto">
             <Reveal direction="left">
-              <TimelineItem 
+              <TimelineItem
                 role="Web Developer"
-                company="Freelance / Contract"
+                company="iFLUTTER"
                 period="May 2022 – May 2023"
-                tech={['Flutter', 'Web', 'Quality Assurance']}
+                tech={['Web', 'Testing & QA', 'Performance']}
               >
-                Delivered custom web solutions tailored to client needs. Focused on modular architecture, comprehensive documentation, and performance optimization to ensure high-quality deliverables.
+                Built and maintained custom client websites end-to-end — development, testing, and QA. Structured modular, maintainable codebases, kept technical documentation current, and resolved production issues while optimizing site performance.
               </TimelineItem>
             </Reveal>
 
@@ -362,50 +365,50 @@ const Portfolio = () => {
           
           <div className="grid md:grid-cols-2 gap-8">
             <Reveal direction="up" delay={0}>
-              <ProjectCard 
-                title="ID-like Prompt Learning"
-                subtitle="OOD Detection Research"
-                tags={['PyTorch', 'CLIP', 'Python', 'Research']}
-                icon={<Brain className="w-6 h-6" />}
-                color="group-hover:border-purple-500/50"
+              <ProjectCard
+                title="EarlyApply"
+                subtitle="AI Job-Matching Platform"
+                tags={['Claude API', 'FastAPI', 'PostgreSQL', 'Next.js', 'ETL']}
+                icon={<Sparkles className="w-6 h-6" />}
+                color="group-hover:border-indigo-500/50"
               >
-                Reproduced a CVPR 2023 study on OOD detection. Achieved 98.63 AUROC on Places dataset by adapting ImageNet training. Implemented mixed-precision training and context optimization.
+                Full-stack platform integrating the Anthropic Claude LLM API to parse CVs into structured data and score candidate–job fit. Built a FastAPI + PostgreSQL/SQLAlchemy backend with an ETL pipeline crawling 12+ job-board/ATS sources, plus a Next.js/React/TypeScript UI with email and Telegram notifications.
               </ProjectCard>
             </Reveal>
 
             <Reveal direction="up" delay={200}>
-              <ProjectCard 
-                title="FedAS Learning"
-                subtitle="Federated Learning Framework"
-                tags={['PyTorch', 'NumPy', 'CUDA', 'Algorithmic']}
-                icon={<Cpu className="w-6 h-6" />}
-                color="group-hover:border-pink-500/50"
+              <ProjectCard
+                title="Few-Shot OOD Detection"
+                subtitle="Prompt Learning Research"
+                tags={['PyTorch', 'CLIP', 'Python', 'Research']}
+                icon={<Brain className="w-6 h-6" />}
+                color="group-hover:border-purple-500/50"
               >
-                Conducted robustness studies on FedAS vs FedAvg/FedProx. Solved non-IID data challenges using Dirichlet distribution and implemented individualized fine-tuning strategies.
+                Reproduced a CVPR 2023 study on out-of-distribution detection using few-shot prompt learning (CLIP). Adapted training from ImageNet-1K to ImageNet-100 and achieved 98.63 AUROC on Places via mixed-precision training and context-length tuning.
               </ProjectCard>
             </Reveal>
 
             <Reveal direction="up" delay={400}>
-              <ProjectCard 
-                title="Chatrio"
-                subtitle="Realtime Anonymous Chat"
-                tags={['React', 'Node.js', 'Socket.IO', 'TypeScript']}
-                icon={<Globe className="w-6 h-6" />}
-                color="group-hover:border-indigo-500/50"
+              <ProjectCard
+                title="FedAS"
+                subtitle="Personalized Federated Learning"
+                tags={['PyTorch', 'NumPy', 'CUDA', 'Algorithmic']}
+                icon={<Cpu className="w-6 h-6" />}
+                color="group-hover:border-pink-500/50"
               >
-                Full-stack messaging platform featuring WebSocket communication, responsive dark/light modes, interest matching, typing indicators, and image compression algorithms.
+                Conducted convergence and robustness studies on FedAS vs FedAvg/FedProx. Solved non-IID data challenges using Dirichlet partitioning and implemented individualized fine-tuning strategies that outperformed the baselines.
               </ProjectCard>
             </Reveal>
 
             <Reveal direction="up" delay={600}>
-              <ProjectCard 
-                title="E-Commerce Platform"
-                subtitle="Scalable Architecture"
-                tags={['Java', 'MySQL', 'Node.js', 'Microservices']}
-                icon={<Server className="w-6 h-6" />}
+              <ProjectCard
+                title="Chatrio"
+                subtitle="Real-time Anonymous Chat"
+                tags={['React', 'Node.js', 'Socket.IO', 'PWA']}
+                icon={<Globe className="w-6 h-6" />}
                 color="group-hover:border-blue-500/50"
               >
-                Complex server-side architecture with Java. Designed schemas for persistent carts and multi-step checkouts. Implemented a Node.js microservice for real-time status updates.
+                Full-stack real-time messaging over WebSockets (Socket.IO + Node.js) with interest matching, typing indicators, and image sharing. Deployed as a cross-device progressive web app (PWA).
               </ProjectCard>
             </Reveal>
           </div>
@@ -421,16 +424,16 @@ const Portfolio = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <Reveal direction="up" delay={0}>
-              <SkillBox title="Languages" items={['Python', 'JavaScript/TS', 'Java', 'C/C++', 'SQL']} icon={<Code />} />
+              <SkillBox title="Languages" items={['Python', 'SQL', 'TypeScript', 'Java', 'C/C++']} icon={<Code />} />
             </Reveal>
             <Reveal direction="up" delay={200}>
-              <SkillBox title="AI / ML" items={['PyTorch', 'NumPy', 'Hugging Face', 'CLIP', 'Pandas']} icon={<Brain />} />
+              <SkillBox title="AI & LLM" items={['Claude / LLM APIs', 'PyTorch', 'Hugging Face', 'CLIP', 'NumPy']} icon={<Brain />} />
             </Reveal>
             <Reveal direction="up" delay={400}>
-              <SkillBox title="Web" items={['React', 'Node.js', 'Express', 'Laravel', 'Socket.IO']} icon={<Globe />} />
+              <SkillBox title="Backend & Data" items={['FastAPI', 'SQLAlchemy', 'PostgreSQL', 'MySQL', 'MongoDB']} icon={<Database />} />
             </Reveal>
             <Reveal direction="up" delay={600}>
-              <SkillBox title="Infrastructure" items={['Git', 'Linux', 'Docker', 'CUDA', 'Rest APIs']} icon={<Terminal />} />
+              <SkillBox title="Web & Tools" items={['React', 'Next.js', 'Node.js', 'Docker', 'Playwright']} icon={<Terminal />} />
             </Reveal>
           </div>
         </div>
@@ -477,7 +480,7 @@ const Portfolio = () => {
           </Reveal>
           <Reveal direction="up" delay={200}>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-12">
-              I'm currently looking for new opportunities in AI and Web Development. 
+              I'm currently seeking a working-student (Werkstudent) role in AI integration, data processing, and digitalization.
               Whether you have a project in mind or just want to discuss the latest in tech, I'd love to hear from you.
             </p>
           </Reveal>
