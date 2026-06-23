@@ -22,7 +22,7 @@ import {
 // source files
 
 import profilePic from './assets/photo.jpeg';
-import resumeEn from './assets/Vijay_Doba_CV1.pdf';
+import resumeEn from './assets/CV_VijayDoba_EN.pdf';
 import resumeDe from './assets/CV_VijayDoba_DE.pdf';
 
 //scrollint reveal component
