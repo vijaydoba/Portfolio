@@ -378,18 +378,6 @@ const Portfolio = () => {
 
             <Reveal direction="up" delay={150}>
               <ProjectCard
-                title="EarlyApply"
-                subtitle="AI Job-Matching Platform"
-                tags={['Claude API', 'FastAPI', 'PostgreSQL', 'Next.js', 'ETL']}
-                icon={<Sparkles className="w-6 h-6" />}
-                color="group-hover:border-indigo-500/50"
-              >
-                Full-stack platform integrating the Anthropic Claude LLM API to parse CVs into structured data and score candidate–job fit. Built a FastAPI + PostgreSQL/SQLAlchemy backend with an ETL pipeline crawling 12+ job-board/ATS sources, plus a Next.js/React/TypeScript UI with email and Telegram notifications.
-              </ProjectCard>
-            </Reveal>
-
-            <Reveal direction="up" delay={300}>
-              <ProjectCard
                 title="Few-Shot OOD Detection"
                 subtitle="Prompt Learning Research"
                 tags={['PyTorch', 'CLIP', 'Python', 'Research']}
@@ -400,7 +388,7 @@ const Portfolio = () => {
               </ProjectCard>
             </Reveal>
 
-            <Reveal direction="up" delay={450}>
+            <Reveal direction="up" delay={300}>
               <ProjectCard
                 title="FedAS"
                 subtitle="Personalized Federated Learning"
@@ -412,7 +400,7 @@ const Portfolio = () => {
               </ProjectCard>
             </Reveal>
 
-            <Reveal direction="up" delay={600}>
+            <Reveal direction="up" delay={450}>
               <ProjectCard
                 title="Chatrio"
                 subtitle="Real-time Anonymous Chat"
