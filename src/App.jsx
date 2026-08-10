@@ -381,6 +381,7 @@ const Portfolio = () => {
                 tags={['Claude API', 'FastAPI', 'RAG', 'ChromaDB', 'Docker']}
                 icon={<Database className="w-6 h-6" />}
                 color="group-hover:border-emerald-500/50"
+                link="http://185.190.142.158:8000"
               >
                 Multi-company RAG workspace that auto-fetches SEC EDGAR filings (plus NSE/XETRA for India and Germany), embeds them locally, and answers questions with citation-grounded evidence via the Claude API. Supports side-by-side company comparison and streaming responses.
               </ProjectCard>
@@ -564,7 +565,7 @@ const TimelineItem = ({ role, company, period, children, tech }) => (
   </div>
 );
 
-const ProjectCard = ({ title, subtitle, tags, icon, children, color }) => {
+const ProjectCard = ({ title, subtitle, tags, icon, children, color, link }) => {
   const cardRef = useRef(null);
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50, glareOpacity: 0 });
 
@@ -610,10 +611,31 @@ const ProjectCard = ({ title, subtitle, tags, icon, children, color }) => {
         <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 group-hover:border-indigo-500/30 group-hover:text-indigo-400 transition-colors">
           {icon}
         </div>
-        <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-white transition-colors cursor-pointer" />
+        {link ? (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open live demo of ${title}`}
+            onClick={(e) => e.stopPropagation()}
+            className="text-slate-600 hover:text-indigo-400 transition-colors"
+          >
+            <ExternalLink className="w-5 h-5" />
+          </a>
+        ) : (
+          <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-white transition-colors cursor-pointer" />
+        )}
       </div>
 
-      <h3 className="relative text-xl font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">{title}</h3>
+      <h3 className="relative text-xl font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">
+        {link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+            {title}
+          </a>
+        ) : (
+          title
+        )}
+      </h3>
       <p className="relative text-sm font-mono text-indigo-500 mb-4">{subtitle}</p>
 
       <p className="relative text-slate-400 leading-relaxed mb-6 text-sm">
