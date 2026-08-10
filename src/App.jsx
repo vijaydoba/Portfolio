@@ -80,10 +80,16 @@ const Portfolio = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [resumeMenuOpen, setResumeMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   // Handle global window events
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      const maxScroll = scrollHeight - clientHeight;
+      setScrollProgress(maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0);
+    };
     const handleMouseMove = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
 
     window.addEventListener('scroll', handleScroll);
@@ -117,9 +123,13 @@ const Portfolio = () => {
       
       {/* Decorative background blobs */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-900/20 rounded-full blur-[120px] animate-pulse delay-1000" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 rounded-full blur-[120px] animate-aurora" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-900/20 rounded-full blur-[120px] animate-aurora-reverse" />
+        <div className="absolute top-[30%] left-[45%] w-[35%] h-[35%] bg-pink-900/10 rounded-full blur-[140px] animate-aurora" style={{ animationDelay: '5s' }} />
       </div>
+
+      {/* Scroll progress bar */}
+      <div className="fixed top-0 left-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 z-[60] transition-[width] duration-150 ease-out" style={{ width: `${scrollProgress}%` }} />
 
       {/* Main Navigation Bar */}
       <nav className={`fixed w-full z-50 transition-all duration-500 border-b border-transparent ${scrolled ? 'bg-slate-950/80 backdrop-blur-xl border-slate-800/50 py-3' : 'bg-transparent py-6'}`}>
@@ -554,31 +564,72 @@ const TimelineItem = ({ role, company, period, children, tech }) => (
   </div>
 );
 
-const ProjectCard = ({ title, subtitle, tags, icon, children, color }) => (
-  <div className={`group bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 hover:-translate-y-2 ${color}`}>
-    <div className="flex justify-between items-start mb-6">
-      <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 group-hover:border-indigo-500/30 group-hover:text-indigo-400 transition-colors">
-        {icon}
+const ProjectCard = ({ title, subtitle, tags, icon, children, color }) => {
+  const cardRef = useRef(null);
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0, glareX: 50, glareY: 50, glareOpacity: 0 });
+
+  const handleMouseMove = (e) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setTilt({
+      rotateX: ((y - rect.height / 2) / (rect.height / 2)) * -6,
+      rotateY: ((x - rect.width / 2) / (rect.width / 2)) * 6,
+      glareX: (x / rect.width) * 100,
+      glareY: (y / rect.height) * 100,
+      glareOpacity: 1,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt((t) => ({ ...t, rotateX: 0, rotateY: 0, glareOpacity: 0 }));
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`group relative bg-slate-900 border border-slate-800 p-8 rounded-2xl hover:bg-slate-800/50 transition-colors duration-300 ${color}`}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translateY(${tilt.glareOpacity ? -8 : 0}px)`,
+        transition: 'transform 200ms ease-out, background-color 300ms',
+      }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 rounded-2xl transition-opacity duration-300"
+        style={{
+          opacity: tilt.glareOpacity,
+          background: `radial-gradient(400px circle at ${tilt.glareX}% ${tilt.glareY}%, rgba(129, 140, 248, 0.12), transparent 60%)`,
+        }}
+      />
+
+      <div className="relative flex justify-between items-start mb-6">
+        <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 group-hover:border-indigo-500/30 group-hover:text-indigo-400 transition-colors">
+          {icon}
+        </div>
+        <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-white transition-colors cursor-pointer" />
       </div>
-      <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-white transition-colors cursor-pointer" />
+
+      <h3 className="relative text-xl font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">{title}</h3>
+      <p className="relative text-sm font-mono text-indigo-500 mb-4">{subtitle}</p>
+
+      <p className="relative text-slate-400 leading-relaxed mb-6 text-sm">
+        {children}
+      </p>
+
+      <div className="relative flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-800/50">
+        {tags.map((tag) => (
+          <span key={tag} className="text-xs font-mono text-slate-500">
+            #{tag}
+          </span>
+        ))}
+      </div>
     </div>
-    
-    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">{title}</h3>
-    <p className="text-sm font-mono text-indigo-500 mb-4">{subtitle}</p>
-    
-    <p className="text-slate-400 leading-relaxed mb-6 text-sm">
-      {children}
-    </p>
-    
-    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-800/50">
-      {tags.map((tag) => (
-        <span key={tag} className="text-xs font-mono text-slate-500">
-          #{tag}
-        </span>
-      ))}
-    </div>
-  </div>
-);
+  );
+};
 
 const SkillBox = ({ title, items, icon }) => (
   <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-indigo-500/30 transition-colors group">
