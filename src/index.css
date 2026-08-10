@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6%, -8%) scale(1.15); }
+  66% { transform: translate(-6%, 6%) scale(0.9); }
+}
+
+@keyframes aurora-drift-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-6%, 8%) scale(0.9); }
+  66% { transform: translate(6%, -6%) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-aurora {
+    animation: aurora-drift 20s ease-in-out infinite;
+  }
+  .animate-aurora-reverse {
+    animation: aurora-drift-reverse 24s ease-in-out infinite;
+  }
+}
