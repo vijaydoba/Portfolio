@@ -418,6 +418,7 @@ const Portfolio = () => {
                 tags={['React', 'Node.js', 'Socket.IO', 'PWA']}
                 icon={<Globe className="w-6 h-6" />}
                 color="group-hover:border-blue-500/50"
+                link="https://chatrio.app"
               >
                 Full-stack real-time messaging over WebSockets (Socket.IO + Node.js) with interest matching, typing indicators, and image sharing. Deployed as a cross-device progressive web app (PWA).
               </ProjectCard>
