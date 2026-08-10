@@ -366,6 +366,18 @@ const Portfolio = () => {
           <div className="grid md:grid-cols-2 gap-8">
             <Reveal direction="up" delay={0}>
               <ProjectCard
+                title="FilingIQ"
+                subtitle="Financial Document RAG Assistant"
+                tags={['Claude API', 'FastAPI', 'RAG', 'ChromaDB', 'Docker']}
+                icon={<Database className="w-6 h-6" />}
+                color="group-hover:border-emerald-500/50"
+              >
+                Multi-company RAG workspace that auto-fetches SEC EDGAR filings (plus NSE/XETRA for India and Germany), embeds them locally, and answers questions with citation-grounded evidence via the Claude API. Supports side-by-side company comparison and streaming responses.
+              </ProjectCard>
+            </Reveal>
+
+            <Reveal direction="up" delay={150}>
+              <ProjectCard
                 title="EarlyApply"
                 subtitle="AI Job-Matching Platform"
                 tags={['Claude API', 'FastAPI', 'PostgreSQL', 'Next.js', 'ETL']}
@@ -376,7 +388,7 @@ const Portfolio = () => {
               </ProjectCard>
             </Reveal>
 
-            <Reveal direction="up" delay={200}>
+            <Reveal direction="up" delay={300}>
               <ProjectCard
                 title="Few-Shot OOD Detection"
                 subtitle="Prompt Learning Research"
@@ -388,7 +400,7 @@ const Portfolio = () => {
               </ProjectCard>
             </Reveal>
 
-            <Reveal direction="up" delay={400}>
+            <Reveal direction="up" delay={450}>
               <ProjectCard
                 title="FedAS"
                 subtitle="Personalized Federated Learning"
