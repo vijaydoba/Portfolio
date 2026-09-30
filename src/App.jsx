@@ -390,29 +390,17 @@ const Portfolio = () => {
 
             <Reveal direction="up" delay={150}>
               <ProjectCard
-                title="Few-Shot OOD Detection"
-                subtitle="Prompt Learning Research"
-                tags={['PyTorch', 'CLIP', 'Python', 'Research']}
+                title="Reproducibility Study"
+                subtitle="6 CVPR 2024 Papers Reproduced"
+                tags={['PyTorch', 'CLIP', 'CUDA', 'Python', 'Research']}
                 icon={<Brain className="w-6 h-6" />}
                 color="group-hover:border-purple-500/50"
               >
-                Reproduced a CVPR 2023 study on out-of-distribution detection using few-shot prompt learning (CLIP). Adapted training from ImageNet-1K to ImageNet-100 and achieved 98.63 AUROC on Places via mixed-precision training and context-length tuning.
+                Reproduced 6 CVPR 2024 papers end-to-end (OOD detection, federated learning, adversarial robustness, binary neural nets, stereo matching) from undocumented repos. Beat two papers' reported accuracy — FedAS (91.03% vs 89.79%) and LANDER (53.34% vs 52.60%) — and adapted a CLIP-based OOD model to 98.63 AUROC on Places via mixed-precision training.
               </ProjectCard>
             </Reveal>
 
             <Reveal direction="up" delay={300}>
-              <ProjectCard
-                title="FedAS"
-                subtitle="Personalized Federated Learning"
-                tags={['PyTorch', 'NumPy', 'CUDA', 'Algorithmic']}
-                icon={<Cpu className="w-6 h-6" />}
-                color="group-hover:border-pink-500/50"
-              >
-                Conducted convergence and robustness studies on FedAS vs FedAvg/FedProx. Solved non-IID data challenges using Dirichlet partitioning and implemented individualized fine-tuning strategies that outperformed the baselines.
-              </ProjectCard>
-            </Reveal>
-
-            <Reveal direction="up" delay={450}>
               <ProjectCard
                 title="Chatrio"
                 subtitle="Real-time Anonymous Chat"
