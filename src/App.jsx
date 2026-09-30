@@ -412,6 +412,18 @@ const Portfolio = () => {
                 Full-stack real-time messaging over WebSockets (Socket.IO + Node.js) with interest matching, typing indicators, and image sharing. Deployed as a cross-device progressive web app (PWA).
               </ProjectCard>
             </Reveal>
+
+            <Reveal direction="up" delay={450}>
+              <ProjectCard
+                title="Sales Lead Automation & Task Control System"
+                subtitle="Bachelor Thesis · Sales Management Web App"
+                tags={['PHP', 'Laravel', 'MySQL', 'REST API']}
+                icon={<Server className="w-6 h-6" />}
+                color="group-hover:border-amber-500/50"
+              >
+                Final-year bachelor thesis, built during a backend internship. Designed REST APIs and CRUD modules for leads, visited leads, sales, tasks, targets, and products — letting employees add, update, and delete records across the full sales pipeline.
+              </ProjectCard>
+            </Reveal>
           </div>
         </div>
       </section>
